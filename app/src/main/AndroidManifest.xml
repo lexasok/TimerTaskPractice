@@ -17,8 +17,11 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".services.TimerService">
-        </service>
+            android:name=".services.TimerService"
+            android:enabled="true"/>
+        <receiver
+            android:name=".RestartTimeServiceReceiver"
+            android:enabled="true" />
     </application>
 
 </manifest>

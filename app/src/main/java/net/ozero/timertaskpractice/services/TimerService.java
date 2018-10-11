@@ -3,12 +3,14 @@ package net.ozero.timertaskpractice.services;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import net.ozero.timertaskpractice.R;
+import net.ozero.timertaskpractice.RestartTimeServiceReceiver;
 
 import java.util.Date;
 import java.util.Timer;
@@ -16,8 +18,11 @@ import java.util.TimerTask;
 
 public class TimerService extends IntentService {
 
+    public Context mContext;
+
     public TimerService() {
         super("TimerService");
+        mContext = this;
     }
 
     @Override
@@ -29,7 +34,6 @@ public class TimerService extends IntentService {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-
                 sendNotification();
             }
         };
@@ -41,7 +45,7 @@ public class TimerService extends IntentService {
         Log.i(getClass().getName(), "task set");
     }
 
-    private void sendNotification() {
+    public void sendNotification() {
 
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
@@ -69,6 +73,9 @@ public class TimerService extends IntentService {
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
+
+        Intent intent = new Intent(this, RestartTimeServiceReceiver.class);
+        sendBroadcast(intent);
 
         Log.i(getClass().getName(), "onTaskRemoved");
 

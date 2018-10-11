@@ -56,7 +56,7 @@ public class TimerService extends IntentService {
         assert notificationManager != null;
         notificationManager.notify(1, notification);
 
-        Log.i(getClass().getName(), "notification sen");
+        Log.i(getClass().getName(), "notification sent");
     }
 
     @Override

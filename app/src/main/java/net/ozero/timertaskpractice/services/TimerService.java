@@ -16,12 +16,14 @@ import java.util.TimerTask;
 
 public class TimerService extends IntentService {
 
-    public TimerService(String name) {
-        super(name);
+    public TimerService() {
+        super("TimerService");
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+
+        Log.i(getClass().getName(), "onHandleIntent");
 
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
@@ -55,5 +57,21 @@ public class TimerService extends IntentService {
         notificationManager.notify(1, notification);
 
         Log.i(getClass().getName(), "notification sen");
+    }
+
+    @Override
+    public void onDestroy() {
+
+        Log.i(getClass().getName(), "onDestroy");
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+
+        Log.i(getClass().getName(), "onTaskRemoved");
+
+        super.onTaskRemoved(rootIntent);
     }
 }
